@@ -3,11 +3,10 @@ import 'package:example/bloc/home_state.dart';
 import 'package:example/core/components/decoration.dart';
 import 'package:example/core/components/text_style.dart';
 import 'package:example/core/constants/color_consts.dart';
-import 'package:example/main.dart';
+import 'package:example/core/data/data_list.dart';
 import 'package:example/screens/widget/_category.dart';
 import 'package:example/screens/widget/_lessons.dart';
 import 'package:example/service/api_servise.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:example/core/extension/size_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,9 +107,12 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: context.w * 0.053,
                       vertical: context.h * 0.014),
-                  child: Text("Dizaynga oid kurslar",
-                      style: AppTextStyle.textStyleNormal(
-                          size: context.h * 0.027)),
+                  child: Text(
+                    category[context.watch<HomeCubit>().indexCount]['sub'],
+                    style: AppTextStyle.textStyleNormal(
+                      size: context.h * 0.027,
+                    ),
+                  ),
                 )
               ],
             ),
