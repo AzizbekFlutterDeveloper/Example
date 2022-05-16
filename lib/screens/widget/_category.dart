@@ -2,6 +2,8 @@ import 'package:example/core/components/decoration.dart';
 import 'package:example/core/components/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:example/core/extension/size_extension.dart';
+import 'package:flutter_svg/parser.dart';
+import 'package:flutter_svg/svg.dart';
 class Category extends StatelessWidget {
   const Category({ Key? key }) : super(key: key);
 
@@ -24,6 +26,7 @@ class Category extends StatelessWidget {
                     borderRadius: AppDecoration.borderRadius,
                     color: const Color(0xffF1F2F6),
                   ),
+                  child: SvgPicture.asset("assets/image/Vector.svg"),
                 ),
                 SizedBox(height: context.h * 0.015),
                 Text("Dasturlash",textAlign: TextAlign.center,style: AppTextStyle.textStyleNormal(size: context.h * 0.019),)
