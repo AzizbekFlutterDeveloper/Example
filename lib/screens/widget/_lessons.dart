@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/core/components/decoration.dart';
 import 'package:example/core/components/text_style.dart';
 import 'package:example/core/constants/color_consts.dart';
@@ -5,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:example/core/extension/size_extension.dart';
 
 class Lessons extends StatelessWidget {
-  const Lessons({Key? key}) : super(key: key);
+  final List data;
+  const Lessons({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -34,24 +37,35 @@ class Lessons extends StatelessWidget {
                     width: context.w * 0.94,
                     decoration: BoxDecoration(
                         borderRadius: AppDecoration.borderRadius,
-                        color: ConsColor.blue),
+                        image:  DecorationImage(
+                          image: CachedNetworkImageProvider(data[index]['attributes']['img_url'][0]['url'])
+                        ),
+                        color: ConsColor.blue,),
                   ),
-                  Text("Moushn dizayn",
-                      style:
-                          AppTextStyle.textStyleBold(size: context.w * 0.06)),
-                  Text("Boshlang`ich darajadagilar uchun",
-                      style: AppTextStyle.textStyle(size: context.w * 0.04)),
-                  Text("😊 97%",
-                      style: AppTextStyle.textStyleNormal(
-                          size: context.w * 0.04, color: ConsColor.blue)),
+                  Text(
+                    data[index]['attributes']['name'],
+                    style: AppTextStyle.textStyleBold(size: context.w * 0.06),
+                  ),
+                  Text(
+                    data[index]["attributes"]['subtitle'],
+                    style: AppTextStyle.textStyle(size: context.w * 0.04),
+                  ),
+                  Text(
+                    data[index]['attributes']['percent'],
+                    style: AppTextStyle.textStyleNormal(
+                      size: context.w * 0.04,
+                      color: ConsColor.blue,
+                    ),
+                  ),
                 ],
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/lessons');
+              Navigator.pushNamed(context, '/lessons', arguments: data[index]['attributes']['lesson']);
             },
           );
         },
+        childCount: data.length
       ),
     );
   }

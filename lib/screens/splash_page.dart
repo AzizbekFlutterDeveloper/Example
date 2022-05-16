@@ -1,3 +1,4 @@
+import 'package:example/service/api_servise.dart';
 import 'package:flutter/material.dart';
 import 'package:example/core/extension/size_extension.dart';
 class SplashPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    ApiServise.getNews();
     Future.delayed(Duration(seconds: 5)).then((value){
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     });

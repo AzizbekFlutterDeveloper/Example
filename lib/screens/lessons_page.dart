@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/core/components/decoration.dart';
 import 'package:example/core/components/text_style.dart';
 import 'package:example/core/constants/color_consts.dart';
@@ -6,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:example/core/extension/size_extension.dart';
 
 class LessonPage extends StatelessWidget {
-  const LessonPage({Key? key}) : super(key: key);
+  final lesson;
+  const LessonPage({Key? key, required this.lesson}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class LessonPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text("UX/UI darslari",
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Text(lesson['name'],
             style: AppTextStyle.textStyleBold(size: context.h * 0.04)),
         actions: [
           IconButton(
@@ -48,8 +50,14 @@ class LessonPage extends StatelessWidget {
                     height: context.h * 0.175,
                     width: context.w * 0.35,
                     decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.horizontal(left: Radius.circular(10)),
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(10),
+                      ),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          lesson['list'][index]['url'],
+                        ),
+                      ),
                       color: ConsColor.blue,
                     ),
                   ),
@@ -65,13 +73,13 @@ class LessonPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "UX/UI nima? Soha haqida umumiy tushuncha.",
+                            lesson['list'][index]['name'],
                             style: AppTextStyle.textStyleBold(
                                 size: context.h * 0.023),
                           ),
                           SizedBox(height: context.h * 0.007),
                           Text(
-                            "Abbos Xazratov",
+                            lesson['list'][index]['person'],
                             style: AppTextStyle.textStyle(
                               size: context.h * 0.017,
                             ),
@@ -86,7 +94,10 @@ class LessonPage extends StatelessWidget {
                                 ),
                               ),
                               Spacer(),
-                              Icon(Icons.play_circle_fill, color: ConsColor.blue,)
+                              Icon(
+                                Icons.play_circle_fill,
+                                color: ConsColor.blue,
+                              )
                             ],
                           ),
                         ],
@@ -96,8 +107,9 @@ class LessonPage extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: (){
-              Navigator.pushNamed(context, '/video');
+            onTap: () {
+              Navigator.pushNamed(context, '/video',
+                  arguments: lesson['list'][index]);
             },
           );
         },

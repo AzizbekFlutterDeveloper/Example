@@ -13,9 +13,9 @@ class Routes {
       case "/home":
         return MaterialPageRoute(builder: (context) => HomePage());
       case "/lessons":
-        return MaterialPageRoute(builder: (context) => LessonPage());
+        return MaterialPageRoute(builder: (context) => LessonPage(lesson: args,));
       case "/video":
-        return MaterialPageRoute(builder: (context) => VideoPage());
+        return MaterialPageRoute(builder: (context) => VideoPage(data: args,));
    
       default:
     }

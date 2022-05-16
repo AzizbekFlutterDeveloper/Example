@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:example/core/extension/size_extension.dart';
 
 class VideoPage extends StatelessWidget {
-  const VideoPage({Key? key}) : super(key: key);
+  final data;
+  const VideoPage({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class VideoPage extends StatelessWidget {
           Container(
             height: context.h * 0.3,
             color: ConsColor.blue,
+            child: Image.network(data['url'],fit: BoxFit.cover,),
           ),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -25,17 +27,17 @@ class VideoPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Figmada mobil ilova dizayni",
+                  data['name'],
                   style: AppTextStyle.textStyleBold(size: context.h * 0.026),
                 ),
                 SizedBox(height: context.h * 0.01),
                 Text(
-                  "Bu darsda biz siz bilan figma dasturida web sayt uchun dizayn qilishni sinab ko`ramiz.",
+                  data['text'],
                   style: AppTextStyle.textStyle(size: context.h * 0.02),
                 ),
                 SizedBox(height: context.h * 0.02),
                 Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                  data['text_long'],
                   style: AppTextStyle.textStyle(size: context.h * 0.02),
                 ),
               ],
