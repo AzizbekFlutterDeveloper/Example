@@ -1,5 +1,6 @@
 import 'package:example/bloc/home_cubit.dart';
 import 'package:example/bloc/home_state.dart';
+import 'package:example/core/base/base_view.dart';
 import 'package:example/core/components/decoration.dart';
 import 'package:example/core/components/text_style.dart';
 import 'package:example/core/constants/color_consts.dart';
@@ -16,33 +17,38 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return FutureBuilder(
-            future: ApiServise.getNews(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator.adaptive());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    "Serverda nosozlik",
-                    style: AppTextStyle.textStyleBold(
-                      size: context.w * 0.05,
-                    ),
-                  ),
-                );
-              } else {
-                var data = snapshot.data;
-                return myScafold(context, data);
-              }
+    return BaseView(
+      viewModal: const HomePage(),
+      onPageBuilder: (context, widget) {
+        return BlocProvider(
+          create: (context) => HomeCubit(),
+          child: BlocConsumer<HomeCubit, HomeState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return FutureBuilder(
+                future: ApiServise.getNews(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator.adaptive());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "Serverda nosozlik",
+                        style: AppTextStyle.textStyleBold(
+                          size: context.w * 0.05,
+                        ),
+                      ),
+                    );
+                  } else {
+                    var data = snapshot.data;
+                    return myScafold(context, data);
+                  }
+                },
+              );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

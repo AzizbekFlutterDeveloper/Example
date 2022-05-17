@@ -1,3 +1,4 @@
+import 'package:example/screens/error_page.dart';
 import 'package:example/screens/home_page.dart';
 import 'package:example/screens/lessons_page.dart';
 import 'package:example/screens/splash_page.dart';
@@ -16,8 +17,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => LessonPage(lesson: args,));
       case "/video":
         return MaterialPageRoute(builder: (context) => VideoPage(data: args,));
-   
       default:
+        return MaterialPageRoute(builder: (context) => ErrorPage());
     }
   }
 }
